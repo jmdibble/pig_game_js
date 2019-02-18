@@ -37,7 +37,7 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
 
 
 
-
+// SAVE FOR LATER 
 
 // document.querySelector("#current-" + activePlayer).textContent = dice;
 // document.querySelector(".dice").style.display = "none";
