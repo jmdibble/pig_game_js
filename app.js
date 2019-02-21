@@ -1,15 +1,6 @@
-/*
-GAME RULES:
+// PIG GAME
 
-- The game has 2 players, playing in rounds
-- In each turn, a player rolls a dice as many times as he wishes. Each result get added to his ROUND score
-- BUT, if the player rolls a 1, all his ROUND score gets lost. After that, it's the next player's turn
-- The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
-- The first player to reach 100 points on GLOBAL score wins the game
-
-*/
-
-var scores, roundScore, activePlayer, dice, gamePlaying;
+var scores, roundScore, activePlayer, dice, gamePlaying, dicePrevious;
 
 init();
 
@@ -18,6 +9,7 @@ function init() {
     activePlayer = 0;
     roundScore = 0;
     gamePlaying = true;
+    previousScore = 0;
 
     document.querySelector(".dice").style.display = "none";
 
@@ -41,7 +33,9 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
     if (gamePlaying) {
 
         // 1. Random number
-        dice = Math.floor(Math.random() * 6) + 1;
+        // dice = Math.floor(Math.random() * 6) + 1;
+        dice = Math.floor(Math.random() * (7 - 5)) + 5;
+        console.log(dice);
 
         // 2. Display result
         var diceDOM = document.querySelector(".dice");
@@ -57,6 +51,19 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
             // Next player
             nextPlayer();
         }
+
+        // 4. Update round score if previous roll, and current roll are NOT both 6
+        if (dice === 6 && dicePrevious === 6) {
+            document.querySelector("#score-" + activePlayer).textContent = 0;
+            // Keep line below to change player, delete to give another go to the poor guy who lost his score
+            nextPlayer();
+            dicePrevious = 0;
+        }
+
+        if (dice === 6) {
+            dicePrevious = 6;
+            dice = 0;
+        }
     }
 });
 
@@ -64,6 +71,7 @@ document.querySelector(".btn-hold").addEventListener("click", function() {
     if (gamePlaying) {
         // Add current score to global score
         scores[activePlayer] += roundScore;
+        dicePrevious = 0;
 
         // Update UI
         document.querySelector("#score-" + activePlayer).textContent = scores[activePlayer];
@@ -96,3 +104,9 @@ function nextPlayer() {
 }
 
 document.querySelector(".btn-new").addEventListener("click", init);
+
+// ADDITIONS
+// 1. Player loses whole score if they roll two 6s in a row
+// 2. Add an input field to set score limit
+// 3. Add another dice for speedy games
+// 4. Let the player choose if they play with 1 or 2 dice
