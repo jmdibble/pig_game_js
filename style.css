@@ -103,6 +103,10 @@ body {
     font-size: 30px;
 }
 
+/**********************************************
+*** BUTTONS
+**********************************************/
+
 button {
     position: absolute;
     width: 200px;
@@ -136,8 +140,11 @@ i {
     margin-top: -4px;
     transition: margin 0.3s;
 }
-
-.btn-new { top: 45px;}
+.btn-sub { 
+    top: 28px;
+    left: 42%;
+}
+.btn-new { top: 85px;}
 .btn-roll { top: 403px;}
 .btn-hold { top: 467px;}
 
@@ -158,12 +165,21 @@ i {
 }
 
 .input-field {
-    width: 20%;
-    display: block;
-    padding: 12px 20px;
-    margin: auto;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    position: absolute;
+    text-align: right;
+    top: 25px;
+    width: 166px;
+    height: 35px;
+    left: 52%;
+    transform: translateX(-50%);
+    color: #555;
+    /*background: none;*/
+    border: none;
+    font-family: Lato;
+    font-size: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 300;
+    transition: background-color 0.3s, color 0.3s;
 }
 

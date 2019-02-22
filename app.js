@@ -1,6 +1,6 @@
 // PIG GAME
 
-var scores, roundScore, activePlayer, dice, gamePlaying, dicePrevious;
+var scores, roundScore, activePlayer, dice, gamePlaying, dicePrevious, mainScore, setScore;
 
 init();
 
@@ -10,6 +10,7 @@ function init() {
     roundScore = 0;
     gamePlaying = true;
     previousScore = 0;
+    mainScore = 100;
 
     document.querySelector(".dice").style.display = "none";
 
@@ -58,11 +59,15 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
             // Keep line below to change player, delete to give another go to the poor guy who lost his score
             nextPlayer();
             dicePrevious = 0;
+        } else {
+            dicePrevious = 0;
         }
 
         if (dice === 6) {
             dicePrevious = 6;
             dice = 0;
+        } else {
+            dicePrevious = 0;
         }
     }
 });
@@ -77,7 +82,7 @@ document.querySelector(".btn-hold").addEventListener("click", function() {
         document.querySelector("#score-" + activePlayer).textContent = scores[activePlayer];
 
         // Check if player won the game
-        if (scores[activePlayer] >= 100) {
+        if (scores[activePlayer] >= mainScore) {
             document.querySelector("#name-" + activePlayer).textContent = "Winner!";
             document.querySelector(".dice").style.display = "none";
             document.querySelector(".player-" + activePlayer + "-panel").classList.add("winner");
@@ -105,8 +110,14 @@ function nextPlayer() {
 
 document.querySelector(".btn-new").addEventListener("click", init);
 
+function subScore() {
+    setScore = document.getElementById("input-field").value;
+    console.log(setScore)
+    mainScore = setScore;
+}
+
 // ADDITIONS
-// 1. Player loses whole score if they roll two 6s in a row
-// 2. Add an input field to set score limit
+// 1. Player loses whole score if they roll two 6s in a row - done
+// 2. Add an input field to set score limit - done
 // 3. Add another dice for speedy games
 // 4. Let the player choose if they play with 1 or 2 dice
